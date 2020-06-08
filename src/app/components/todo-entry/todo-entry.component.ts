@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+
 
 @Component({
   selector: 'app-todo-entry',
@@ -7,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TodoEntryComponent implements OnInit {
 
+  @Output() itemAdded = new EventEmitter<string>();
   constructor() { }
 
   ngOnInit(): void {
@@ -14,7 +16,7 @@ export class TodoEntryComponent implements OnInit {
 
   addItem(what: HTMLInputElement) {
     console.log(what.value);
-    // add it to the list?? (HOW!?)
+    this.itemAdded.emit(what.value); // if there is something hooked to my @Output, let them know an item was added.
     what.value = '';
     what.focus(); // puts the cursor in it waiting for more stuff.
   }

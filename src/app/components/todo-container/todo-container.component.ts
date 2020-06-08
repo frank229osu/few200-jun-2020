@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { TodoListItem } from '../../models';
+import { TodoDataService } from 'src/app/services/todo-data.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-todo-container',
@@ -7,9 +10,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TodoContainerComponent implements OnInit {
 
-  constructor() { }
+  stuff$: Observable<TodoListItem[]>;
+  constructor(private service: TodoDataService) { }
 
   ngOnInit(): void {
+    this.stuff$ = this.service.getItems();
   }
+
+  addAnItem(description: string) {
+    // this.stuff = [{ description, completed: false }, ...this.stuff]; // Array Spread
+    this.service.addItem(description);
+  }
+
 
 }
