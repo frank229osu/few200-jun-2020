@@ -1,5 +1,5 @@
 import * as fromCounter from './counter.reducer';
-import { ActionReducerMap } from '@ngrx/store';
+import { ActionReducerMap, createSelector } from '@ngrx/store';
 
 // Create an interface that describes (for TypeScript) the application state.
 export interface AppState {
@@ -10,3 +10,21 @@ export interface AppState {
 export const reducers: ActionReducerMap<AppState> = {
   counter: fromCounter.reducer
 };
+
+// Selector Functions
+
+// 1. If in a feature, create a feature selector.
+
+
+// 2. Create a mini selector function for each branch of the state.
+const selectCounterBranch = (state: AppState) => state.counter;
+
+// 3. Any helpers you might need?
+
+// 4. Write a select for the components.
+
+// TODO: We need a selectorFunction that returns the current count
+export const selectGetCurrent = createSelector(
+  selectCounterBranch,
+  b => b.current
+);
