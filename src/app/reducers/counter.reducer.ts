@@ -17,7 +17,7 @@ export const initialState: CounterState = {
 // (state, action): state
 // have to be "pure" functions
 // --- they can't change their arguments
-// --- can't do things like API calls, etc.
+// --- can't do things like API calls, etc. ("Side Effects")
 const myReducer = createReducer(
   initialState,
   on(actions.countIncremented, (currentState) => ({ ...currentState, current: currentState.current + currentState.by })),
