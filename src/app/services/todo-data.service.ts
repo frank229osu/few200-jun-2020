@@ -11,6 +11,7 @@ export class TodoDataService {
   ];
 
   private subject = new BehaviorSubject<TodoListItem[]>(this.items);
+
   getItems(): Observable<TodoListItem[]> {
     return this.subject.asObservable();
   }
