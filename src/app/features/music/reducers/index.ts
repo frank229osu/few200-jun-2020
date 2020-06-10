@@ -48,7 +48,7 @@ const selectSongListItemsUnsorted = createSelector(
   (songs) => songs.map(song => {
     return {
       ...song,
-      isSaved: song.id.startsWith('T')
+      isSaved: !song.id.startsWith('T')
     } as SongListItem;
   }) // SongListItem[] - what the component needs.
 );
