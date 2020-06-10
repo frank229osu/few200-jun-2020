@@ -45,7 +45,12 @@ export const selectSortingSongsBy = createSelector(
 
 const selectSongListItemsUnsorted = createSelector(
   selectSongEntityArray, // SongEntity[]
-  (songs) => songs as SongListItem[] // SongListItem[] - what the component needs.
+  (songs) => songs.map(song => {
+    return {
+      ...song,
+      isSaved: song.id.startsWith('T')
+    } as SongListItem;
+  }) // SongListItem[] - what the component needs.
 );
 
 export const selectSongListItems = createSelector(
