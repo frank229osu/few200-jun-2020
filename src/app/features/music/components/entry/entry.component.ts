@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { MusicState } from '../../reducers';
+import { addSong } from '../../actions/songs.actions';
 
 @Component({
   selector: 'app-entry',
@@ -9,11 +12,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class EntryComponent implements OnInit {
 
   songForm: FormGroup;
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private store: Store<MusicState>) { }
 
   ngOnInit(): void {
     this.songForm = this.formBuilder.group({
-      title: ['', [Validators.required, Validators.maxLength(10)]],
+      title: ['', [Validators.required, Validators.maxLength(50)]],
       artist: ['', [Validators.required]],
       album: ['', [Validators.required]]
     });
@@ -30,7 +33,9 @@ export class EntryComponent implements OnInit {
   get album() {
     return this.songForm.get('album');
   }
-  submit() {
-    console.log(this.songForm.value); // Dispatch!
+  submit(focusMe: HTMLInputElement) {
+    this.store.dispatch(addSong(this.songForm.value));
+    this.songForm.reset();
+    focusMe.focus();
   }
 }
