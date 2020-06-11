@@ -3,4 +3,5 @@ export interface BooksListItem {
   title: string;
   author: string;
   format: string;
+  onLoan: boolean;
 }

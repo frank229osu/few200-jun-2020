@@ -6,6 +6,7 @@ export interface BookEntity {
   title: string;
   author: string;
   format: string;
+  onLoan: boolean;
 }
 
 export interface BooksListState extends EntityState<BookEntity> {
@@ -22,20 +23,23 @@ const initialState: BooksListState = {
       id: '1',
       title: 'High Weirdness',
       author: 'Erik Davis',
-      format: 'HardCover'
+      format: 'HardCover',
+      onLoan: true
     },
     2: {
       id: '2',
       title: 'Walden',
       author: 'Thoreau',
-      format: 'SoftCover'
+      format: 'SoftCover',
+      onLoan: false
     }
   }
 };
 
 const reducerFunction = createReducer(
   initialState,
-  on(actions.addBook, (s, a) => adapter.addOne(a.payload, s))
+  on(actions.addBook, (s, a) => adapter.addOne(a.payload, s)),
+  on(actions.returnBook, actions.loanBook, (s, a) => adapter.updateOne({ id: a.payload.id, changes: { onLoan: !a.payload.onLoan } }, s))
 );
 
 export function reducer(state: BooksListState = initialState, action: Action) {
