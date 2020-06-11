@@ -5,6 +5,7 @@ import { EditComponent } from './components/edit/edit.component';
 import { ListComponent } from './components/list/list.component';
 import { StoreModule } from '@ngrx/store';
 import { featureName, reducers } from './reducers';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -12,7 +13,8 @@ import { featureName, reducers } from './reducers';
   declarations: [BooksComponent, EditComponent, ListComponent],
   imports: [
     CommonModule,
-    StoreModule.forFeature(featureName, reducers)
+    StoreModule.forFeature(featureName, reducers),
+    ReactiveFormsModule
   ],
   exports: [BooksComponent]
 })
