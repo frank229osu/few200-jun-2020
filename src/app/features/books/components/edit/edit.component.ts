@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { BooksState } from '../../reducers';
+import { addBook } from '../../actions/books-list.actions';
 
 @Component({
   selector: 'app-edit',
@@ -10,7 +13,7 @@ export class EditComponent implements OnInit {
 
   formats = ['', 'HardCover', 'SoftCover', 'E-Book']; // todo state?
   bookForm: FormGroup;
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private store: Store<BooksState>) { }
 
   ngOnInit(): void {
     this.bookForm = this.formBuilder.group({
@@ -20,8 +23,10 @@ export class EditComponent implements OnInit {
     });
   }
 
-  submit() {
-    console.log(this.bookForm.value);
+  submit(focusMe: HTMLInputElement) {
+    this.store.dispatch(addBook(this.bookForm.value));
+    this.bookForm.reset();
+    focusMe.focus();
   }
 
   get title() {

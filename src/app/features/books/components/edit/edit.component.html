@@ -1,9 +1,10 @@
-<form (ngSubmit)="submit()"
+<form (ngSubmit)="submit(focusMe)"
       [formGroup]="bookForm">
   <div class="form-group">
     <label for="title">Title</label>
     <input class="form-control"
            name="title"
+           #focusMe
            formControlName="title">
     <div class="alert alert-danger"
          *ngIf="title.invalid && (title.touched || title.dirty)">
