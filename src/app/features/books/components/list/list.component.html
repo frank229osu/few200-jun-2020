@@ -1,0 +1,11 @@
+<div *ngIf="books.length === 0">
+  <h2>Your mahogany shelves are bare save for the dust that decorates them</h2>
+</div>
+
+<div class="card" *ngFor="let book of books">
+  <div class="card-body">
+    <h4><b>{{book.title}}</b></h4>
+    <p>{{book.author}}</p>
+    <p>{{book.format}}</p>
+  </div>
+</div>
